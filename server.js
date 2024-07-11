@@ -23,7 +23,7 @@ app.post('/webhook-endpoint', (req, res) => {
         }
     });
 
-    res.sendStatus(200).json({ success: true, data: req.body }); // Responder OK
+    res.status(200).json({ success: true, data: req.body });
 });
 
 app.listen(port, () => {
