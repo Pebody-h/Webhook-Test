@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const WebSocket = require('ws');
 const bodyParser = require('body-parser');
+const { wss } = require('./websocket-server');
 
 const app = express();
 const port = process.env.PORT || 3000;
