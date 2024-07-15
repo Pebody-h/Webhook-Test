@@ -36,7 +36,6 @@ class AppwriteManager {
 }
 
 const appwriteManagerInstance = new AppwriteManager();
-await appwriteManagerInstance.config(); 
 
 module.exports = {
     AppwriteManager,

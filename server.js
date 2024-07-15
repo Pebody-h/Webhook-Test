@@ -26,6 +26,12 @@ app.post('/webhook-endpoint', async (req, res) => {
     }
 });
 
-server.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running at ${process.env.PORT || 3000}`);
+appwriteManagerInstance.config()
+.then(() => {
+    server.listen(process.env.PORT || 3000, () => {
+        console.log(`Server running at ${process.env.PORT || 3000}`);
+    });
+})
+.catch((error) => {
+    console.error('Failed to configure Appwrite:', error);
 });
