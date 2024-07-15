@@ -19,8 +19,12 @@ app.post('/webhook-endpoint', async (req, res) => {
       const notification = req.body;
       console.log("notification.value", notification.value);
       console.log("notification.value", "v" + notification.value);
-      await appwriteManagerInstance.createNotification(notification.value, "v" + notification.value);
-      res.send('Success');
+      if(notification.value != undefined){
+        await appwriteManagerInstance.createNotification(notification.value, "v" + notification.value);
+        res.send('Success');
+      } else {
+        res.send('values duplicated');
+    }
     } catch (error) {    
         res.send(error);
     }
