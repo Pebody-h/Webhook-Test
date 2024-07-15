@@ -26,7 +26,7 @@ class AppwriteManager {
                 collectionId,
                 String(documentId),
                 {
-                    value: data
+                    notifications: data
                 }
             );
         } catch (error) {
@@ -36,6 +36,7 @@ class AppwriteManager {
 }
 
 const appwriteManagerInstance = new AppwriteManager();
+await appwriteManagerInstance.config(); 
 
 module.exports = {
     AppwriteManager,
