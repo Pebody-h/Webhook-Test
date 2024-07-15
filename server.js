@@ -1,11 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const WebSocket = require('ws');
+const http = require('http');
 const bodyParser = require('body-parser');
-const { wss } = require('./websocket-server');
+const { appwriteManagerInstance } = require('./appwriteNotifications');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
 
 app.use(bodyParser.json());
 
@@ -13,19 +13,19 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-app.post('/webhook-endpoint', (req, res) => {
+app.post('/webhook-endpoint', async (req, res) => {
     console.log('Webhook received:', req.body);
-
-    // Enviar la notificación a todos los clientes conectados
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(req.body));
-        }
-    });
-
-    res.status(200).json({ success: true, data: req.body });
+    try {
+      const notification = req.body;
+      console.log("notification.value", notification.value);
+      console.log("notification.value", "v" + notification.value);
+      await appwriteManagerInstance.createNotification('827364823', "v" + notification.value);
+      res.send('Success');
+    } catch (error) {    
+        res.send(error);
+    }
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+server.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running at ${process.env.PORT || 3000}`);
 });
