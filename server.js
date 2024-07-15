@@ -19,7 +19,7 @@ app.post('/webhook-endpoint', async (req, res) => {
       const notification = req.body;
       console.log("notification.value", notification.value);
       console.log("notification.value", "v" + notification.value);
-      await appwriteManagerInstance.createNotification('827364823', "v" + notification.value);
+      await appwriteManagerInstance.createNotification(notification.value, "v" + notification.value);
       res.send('Success');
     } catch (error) {    
         res.send(error);
